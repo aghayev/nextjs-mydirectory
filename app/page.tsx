@@ -16,6 +16,13 @@ export default function Home() {
         <li>
           <Link href="/handyman">Handyman</Link>
         </li>
+        <hr/>
+        <li>
+          <Link href="/api/sqlite">Api Sqlite</Link>
+        </li>
+        <li>
+          <Link href="/api/ping">Ping</Link>
+        </li>
       </ul>
     </main>
   )
