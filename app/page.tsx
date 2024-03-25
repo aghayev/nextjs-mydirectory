@@ -23,6 +23,9 @@ export default function Home() {
         <li>
           <Link href="/api/ping">Ping</Link>
         </li>
+        <li>
+          <Link href="/reduxcounter">Redux Counter</Link>
+        </li>
       </ul>
     </main>
   )
