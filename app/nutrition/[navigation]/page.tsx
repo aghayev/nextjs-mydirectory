@@ -1,5 +1,6 @@
 'use client'
 import {usePathname, useParams, useSearchParams} from "next/navigation";
+import { useEffect, useState } from "react";
  
     // folder structure: app/nutrition/[navigation]/page.tsx
     // url: http://localhost:3002/nutrition/something?query=mine
@@ -10,23 +11,51 @@ import {usePathname, useParams, useSearchParams} from "next/navigation";
     */
     export default function Page() {
  
+    /*
     let queryResult: string | null | undefined = null
- 
+    const pathName = usePathname()    
+    const searchParams = useSearchParams() 
+    queryResult = searchParams?.get('query')
+    */
+  
     // params dataset placeholder
     let params: Record<string, string | string[]> | null
- 
-    const pathName = usePathname()
+
+    
     params = useParams()
-    const searchParams = useSearchParams() 
-    queryResult = searchParams?.get('query')    
- 
-    console.log(params)
+    const [dataResponse, setdataResponse] = useState([]);
+
+    useEffect(() => {
+        async function getPageData() {
+          const apiUrlEndpoint = `http://localhost:3002/api/sqlite`;
+          const postData = {
+            method: "Post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              category: params?.navigation,
+            }),
+          };
+    
+          const response = await fetch(apiUrlEndpoint, postData);
+          
+          const res = await response.json();
+          setdataResponse(res.items);
+        }
+        getPageData();
+      }, [params]);
+      
+      useEffect(() => {
+        console.log(dataResponse);
+      }, [dataResponse]);      
 
     return (
         <>
-        <div><span>Pathname: </span>{pathName}</div>
         <div><span>Params: </span>{params?.navigation}</div>
-        <div><span>SearchParams: </span>{queryResult}</div>
+        <div>
+        {dataResponse.map((item) => (
+                <span>{item['title']}</span>
+            ))}
+        </div>
         </>
     )
 }

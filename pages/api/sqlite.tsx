@@ -5,7 +5,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 let db: Database<sqlite3.Database, sqlite3.Statement> | null = null;
 
 type ResponseData = {
-  data: any[]
+  items: any[]
 }
 
 export default async function handler(
@@ -13,14 +13,32 @@ export default async function handler(
   res: NextApiResponse<ResponseData>
 ) {
 
-    if (!db) {
+  if (!db) {
       db = await open({
-        filename: "./lib/db/sqlite/sample.db",
+        filename: "./lib/db/sqlite/mydirectory.db",
         driver: sqlite3.Database,
       });
     }
   
-    const data = await db.all("SELECT * FROM sampletable");
- 
-return res.status(200).json({ data: data });
+    const category = req.body.category;
+
+    try {
+
+      /*
+      const querySql =
+      "SELECT A.title, A.description, A.picture_path \
+      FROM items A Inner join categories B ON A.category_id = B.entity_id \
+      WHERE category_name = 'BreakfastIdeas'";
+      */
+
+      const querySql = "SELECT A.title, A.description, A.picture_path FROM items A \
+      INNER JOIN categories B ON A.category_id = B.entity_id";
+
+      const data = await db.all(querySql);
+  
+      res.status(200).json({ items: data });
+    } catch (error) {
+      // unhide to check error
+      //res.status(500).json({ error: error.message });
+    }
 }

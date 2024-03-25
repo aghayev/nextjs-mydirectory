@@ -6,15 +6,15 @@ const NutritionPage = () => {
     <div>
       <ul>
         <li>
-          <Link href="/nutrition/BreakfastIdeas">Breakfast Ideas</Link>
+          <Link href="/nutrition/BreakfastIdeas">Breakfast ideas</Link>
         </li>
         <li>
-          <Link href="/nutrition/LunchAndDinnerIdeas">
-            Lunch And Dinner Ideas
+          <Link href="/nutrition/LunchOrDinnerIdeas">
+            Lunch and dinner ideas
           </Link>
         </li>
         <li>
-          <Link href="/DrinksAndSnacks">Drinks And Snacks</Link>
+          <Link href="/DrinksAndSnacks">Drinks and snacks</Link>
         </li>
       </ul>
     </div>
