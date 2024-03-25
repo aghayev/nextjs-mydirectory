@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import styles from './layout.module.css'
+import { Providers } from './GlobalRedux/provider'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -22,7 +23,9 @@ export default function RootLayout({
           className={styles.header}
         >My wellbeing directory</div>
         <div>
-          {children}
+          <Providers>
+            {children}
+          </Providers>
         </div>
       </body>
     </html>
