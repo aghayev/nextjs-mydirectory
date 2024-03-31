@@ -14,7 +14,7 @@ const NutritionPage = () => {
           </Link>
         </li>
         <li>
-          <Link href="/DrinksAndSnacks">Drinks and snacks</Link>
+          <Link href="/nutrition/DrinksAndSnacks">Drinks and snacks</Link>
         </li>
       </ul>
     </div>

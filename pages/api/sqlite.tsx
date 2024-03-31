@@ -4,8 +4,13 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 let db: Database<sqlite3.Database, sqlite3.Statement> | null = null;
 
-type ResponseData = {
+type ResponseData = ResponseSuccessData | ResponseErrorData 
+type ResponseSuccessData = {
   items: any[]
+}
+
+type ResponseErrorData = {
+  error: string
 }
 
 export default async function handler(
@@ -20,25 +25,18 @@ export default async function handler(
       });
     }
   
-    const category = req.body.category;
-
     try {
+      const category = req?.body.category;
 
-      /*
-      const querySql =
-      "SELECT A.title, A.description, A.picture_path \
-      FROM items A Inner join categories B ON A.category_id = B.entity_id \
-      WHERE category_name = 'BreakfastIdeas'";
-      */
-
-      const querySql = "SELECT A.title, A.description, A.picture_path FROM items A \
-      INNER JOIN categories B ON A.category_id = B.entity_id";
+      const querySql = `SELECT A.title, A.description, A.picture_path FROM items A \
+      INNER JOIN categories B ON A.category_id = B.entity_id \
+      WHERE B.category_name = '${category}'`;
 
       const data = await db.all(querySql);
   
       res.status(200).json({ items: data });
-    } catch (error) {
-      // unhide to check error
-      //res.status(500).json({ error: error.message });
+    } catch (error: any) {
+      console.log('Error occured: ' + error.response.data)
+      res.status(500).json({ error: 'Internal System Error'})
     }
 }
