@@ -1,7 +1,15 @@
 .header {
     width: 100%;
-    height: 50vh;
     background-color: cyan;
     text-align: center;
     font-size: 2rem;
+  }
+
+  .trailer {
+    width: 100%;
+    height: 3vh;
+    background-color: orange;
+    text-align: right;
+    font-size:xx-small;
+    padding-right: 10px
   }
