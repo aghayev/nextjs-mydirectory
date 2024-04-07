@@ -27,7 +27,7 @@ import { useEffect, useState } from "react";
 
     useEffect(() => {
         async function getPageData() {
-          const apiUrlEndpoint = `http://localhost:3002/api/sqlite`;
+          const apiUrlEndpoint = `http://localhost:3002/api/db/sqlite`;
           const postData = {
             method: "Post",
             headers: { "Content-Type": "application/json" },
