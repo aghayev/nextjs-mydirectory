@@ -5,10 +5,10 @@ export default function Home() {
     <main>
       <ul>
         <li>
-          <Link href="/login">Login</Link>
+          <Link href="/nutrition">Nutrition</Link>
         </li>
         <li>
-          <Link href="/nutrition">Nutrition</Link>
+          <Link href="/api/db/sqlite">Api Sqlite</Link>
         </li>
         <li>
           <Link href="/swimming">Swimming</Link>
@@ -18,10 +18,10 @@ export default function Home() {
         </li>
         <hr/>
         <li>
-          <Link href="/api/sqlite">Api Sqlite</Link>
+          <Link href="/api/ping">Ping</Link>
         </li>
         <li>
-          <Link href="/api/ping">Ping</Link>
+          <Link href="/form">Form login</Link>
         </li>
         <li>
           <Link href="/reduxcounter">Redux Counter</Link>
