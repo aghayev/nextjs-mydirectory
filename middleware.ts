@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+const isDbRoute = (pathname: string) => {
+  return pathname.startsWith('/api/db');
+}
+
 const isNutritionRoute = (pathname: string) => {
   return pathname.startsWith('/nutrition');
 }
@@ -12,23 +16,21 @@ const isHandymanRoute = (pathname: string) => {
   return pathname.startsWith('/handyman');
 }
 
-const isDbRoute = (pathname: string) => {
-  return pathname.startsWith('/api/db');
-}
-
-
 export async function middleware(req: NextRequest) {
-  const { pathname } = req.nextUrl;
   const url = req.nextUrl;
 
-  if (isSwimmingRoute(pathname) || isHandymanRoute(pathname)) {
+  // Case 1: ACCESS DENIED
+  if (isSwimmingRoute(url.pathname) 
+  || isHandymanRoute(url.pathname)) {
     return Response.json(
-      { success: false, message: 'Under construction' },
-      { status: 401 }
+      { success: false, message: 'Access forbidden' },
+      { status: 403 }
     )
   }
 
-  if (isNutritionRoute(pathname) || isDbRoute(pathname)) {
+  // Case 2: www authentication
+  if (isDbRoute(url.pathname)
+  || isNutritionRoute(url.pathname)) {
     const basicAuth = req.headers.get('authorization')
 
     if (basicAuth) {
@@ -48,5 +50,10 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/api/db/:path*', '/nutrition/:path*', '/swimming/:path*', '/handyman/:path*']
+    matcher: [
+      '/api/db/:path*', 
+      '/nutrition/:path*',
+      '/swimming/:path*', 
+      '/handyman/:path*'
+    ]
 };
