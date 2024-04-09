@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getSession } from "./lib/db/auth";
 
 export const config = {
   matcher: [
@@ -92,6 +93,7 @@ export async function middleware(req: NextRequest) {
 
   // Auth, session storage
   if (isProtectedRoute(url.pathname)) {
+    //const sessionId = getSession(sessionId); // Validate session
     const sessionId = req.cookies.get('sessionId');
     if (!sessionId) {
       url.pathname = "/protected";
