@@ -5,26 +5,23 @@ export default function Home() {
     <main>
       <ul>
         <li>
-          <Link href="/nutrition">Nutrition</Link>
+          <Link href="/nutrition">Nutrition (Protected session-based route)</Link>
         </li>
         <li>
-          <Link href="/api/db/sqlite">Api Sqlite</Link>
+          <Link href="/api/db/sqlite">Api Db (Protected session-based route)</Link>
         </li>
         <li>
-          <Link href="/swimming">Swimming</Link>
+          <Link href="/swimming">Swimming (Restricted route)</Link>
         </li>
         <li>
-          <Link href="/handyman">Handyman</Link>
+          <Link href="/handyman">Handyman (Restricted route)</Link>
         </li>
         <hr/>
         <li>
-          <Link href="/api/ping">Ping</Link>
+          <Link href="/api/ping">Ping (Protected geolocation-based  route)</Link>
         </li>
         <li>
-          <Link href="/form">Form login</Link>
-        </li>
-        <li>
-          <Link href="/reduxcounter">Redux Counter</Link>
+          <Link href="/reduxcounter">(Protected api-rate limit route)</Link>
         </li>
       </ul>
     </main>
