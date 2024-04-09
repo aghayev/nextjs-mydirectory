@@ -52,9 +52,11 @@ import { useEffect, useState } from "react";
         <>
         <div><span>Params: </span>{params?.navigation}</div>
         <div>
+          <ul>
         {dataResponse.map((item) => (
-                <span>{item['title']}</span>
+                <span><li>{item['title']}</li></span>
             ))}
+          </ul>
         </div>
         </>
     )

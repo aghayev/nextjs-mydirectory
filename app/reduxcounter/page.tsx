@@ -10,18 +10,26 @@ const ReduxcounterPage = () => {
     const dispatch = useDispatch();
 
   return (
-    <div>
+    <>
+    <ul>
+        <li>
         <button onClick={() => dispatch(increment())}>
             Increment
         </button>
+        </li>
+        <li>
         <button onClick={() => dispatch(decrement())}>
             Decrement
         </button>
+        </li>
+        <li>        
         <button onClick={() => dispatch(incrementByAmount(2))}>
             Increment By 2
         </button>
-        <span>{count}</span>
-    </div>
+        </li>
+    </ul>
+    <span>Result: {count}</span>
+    </>
   )
 }
 

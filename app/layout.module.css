@@ -5,6 +5,10 @@
     font-size: 2rem;
   }
 
+  .body {
+    padding-left: 10px;
+  }
+
   .trailer {
     width: 100%;
     height: 3vh;

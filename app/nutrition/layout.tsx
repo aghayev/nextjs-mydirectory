@@ -10,7 +10,7 @@ export default function Layout({
       <div>
         <h2>NutritionPage</h2>
       </div>
-      <div>
+      <div className={styles.children}>
         {children}
       </div>
     </div>)

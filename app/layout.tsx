@@ -28,7 +28,7 @@ export default function RootLayout({
       <body>
         <div className={styles.header}>My wellbeing directory</div>
         <div>
-          <Providers>
+           <Providers>
             {children}
           </Providers>
         </div>

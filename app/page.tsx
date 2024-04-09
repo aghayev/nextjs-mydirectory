@@ -1,8 +1,9 @@
 import Link from "next/link";
+import styles from './layout.module.css'
 
 export default function Home() {
   return (
-    <main>
+    <main className={styles.body}>
       <ul>
         <li>
           <Link href="/nutrition">Nutrition (Protected session-based route)</Link>

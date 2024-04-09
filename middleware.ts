@@ -24,19 +24,23 @@ const isGeoipRoute = (pathname: string) => {
 
 const fetchLocationByIP = async () => {
   const request = await fetch("https://ipapi.co/json/");
-  const jsonResponse = await request.json();
-  return jsonResponse.country;
+  const jsonResponse = await request.json()
+  return jsonResponse.country
 };
 
 export async function middleware(req: NextRequest) {
-  const { nextUrl: url, geo } = req;
+  const { nextUrl: url, geo } = req
+
+
+  console.log(req.headers["x-forwarded-for"])
+
 
   // Restricted, if some paths are under construction
   if (isRestrictedRoute(url.pathname)) {
     return Response.json(
       { success: false, message: "Access forbidden" },
       { status: 403 }
-    );
+    )
   }
 
   // Protected, based on Geolocation
@@ -56,11 +60,11 @@ export async function middleware(req: NextRequest) {
 
   // Auth, session storage
   if (isProtectedRoute(url.pathname)) {
-    const basicAuth = req.headers.get("authorization");
+    const basicAuth = req.headers.get("authorization")
 
     if (basicAuth) {
       const authValue = basicAuth.split(" ")[1];
-      const [user, pwd] = atob(authValue).split(":");
+      const [user, pwd] = atob(authValue).split(":")
 
       if (user === "admin" && pwd === "admin") {
         return NextResponse.next();
@@ -68,8 +72,8 @@ export async function middleware(req: NextRequest) {
     }
 
     url.pathname = "/api/login";
-    return NextResponse.rewrite(url);
+    return NextResponse.rewrite(url)
   }
 
-  return NextResponse.next();
+  return NextResponse.next()
 }
