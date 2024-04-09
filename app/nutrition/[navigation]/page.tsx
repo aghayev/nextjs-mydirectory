@@ -27,16 +27,13 @@ import { useEffect, useState } from "react";
 
     useEffect(() => {
         async function getPageData() {
-          const apiUrlEndpoint = `http://localhost:3002/api/db/sqlite`;
-          const postData = {
-            method: "Post",
+          const response = await fetch('/api/db/sqlite', {
+            method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               category: params?.navigation,
             }),
-          };
-    
-          const response = await fetch(apiUrlEndpoint, postData);
+          })
           
           const res = await response.json();
           setdataResponse(res.items);

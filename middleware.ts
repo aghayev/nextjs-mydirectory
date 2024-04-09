@@ -92,18 +92,11 @@ export async function middleware(req: NextRequest) {
 
   // Auth, session storage
   if (isProtectedRoute(url.pathname)) {
-    const basicAuth = req.headers.get("authorization");
-
-    if (basicAuth) {
-      const authValue = basicAuth.split(" ")[1];
-      const [user, pwd] = atob(authValue).split(":");
-
-      if (user === "admin" && pwd === "admin") {
-        return NextResponse.next();
-      }
+    const sessionId = req.cookies.get('sessionId');
+    if (!sessionId) {
+      url.pathname = "/protected";
     }
 
-    url.pathname = "/api/login";
     return NextResponse.rewrite(url);
   }
 
