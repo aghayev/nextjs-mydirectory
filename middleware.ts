@@ -91,9 +91,24 @@ export async function middleware(req: NextRequest) {
     ipData.count += 1;
   }
 
-  // Auth, session storage
+  // Protected, Session storage
   if (isProtectedRoute(url.pathname)) {
-    //const sessionId = getSession(sessionId); // Validate session
+
+    /*
+    const session = getSession(req.cookies.get('sessionId')); // Validate session
+    if (!session) {
+      url.pathname = "/protected";
+    }
+
+    // Authorization
+    if (session.user.role !== 'admin') {
+    return Response.json(
+      { success: false, message: "Access forbidden" },
+      { status: 403 }
+    )
+    }
+    */
+
     const sessionId = req.cookies.get('sessionId');
     if (!sessionId) {
       url.pathname = "/protected";

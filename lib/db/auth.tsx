@@ -30,11 +30,11 @@ export async function getUser(username: string, password: string) {
 }
 
 // Validate Session
-export async function getSession(sessionId: string | undefined) {
-  if (sessionId) {
+export async function getSession(sessionId: any) {
+
   if (!db) {
     db = await open({
-      filename: "./lib/db/sqlite/mydirectory.db",
+      filename: "./sqlite/mydirectory.db",
       driver: sqlite3.Database,
     });
   }
@@ -48,7 +48,6 @@ export async function getSession(sessionId: string | undefined) {
   } catch (error: any) {
     console.log("error occured:" + error);
   }
-}
 
   return null;
 }
