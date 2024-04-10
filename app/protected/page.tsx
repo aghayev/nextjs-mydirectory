@@ -1,8 +1,10 @@
 'use client'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import styles from './layout.module.css'
 
 function ProtectedPage() {
+  const [statusText, setStatusText] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const router = useRouter()
@@ -22,7 +24,14 @@ function ProtectedPage() {
         }),
       })
 
-      if (!response.ok) throw new Error('Login failed')
+      if (!response.ok) {
+        setStatusText(response.statusText)
+        setTimeout(() => {
+          setStatusText('')
+        },2000)
+        throw new Error('Login failed')
+      }
+
     router.push('/')
     } catch (error) {
       console.error(error)
@@ -34,15 +43,17 @@ function ProtectedPage() {
       <form onSubmit={handleLogin}>
         <label>
           Username:
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className={styles.inputText} required />
         </label>
         <br />
         <label>
           Password:
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className={styles.inputText} required />
         </label>
         <br />
         <button type="submit">Log In</button>
+        <br />
+        <span className={styles.errorMsg}>{statusText}</span>
       </form>
     </div>
   )

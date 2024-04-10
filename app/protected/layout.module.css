@@ -1,0 +1,17 @@
+.innerLayout {
+    width: 50%;
+    height: auto;
+    padding: 1rem;
+  }
+  
+  .children {
+    padding: 1rem;
+  }
+
+  .errorMsg {
+    color: red
+  }
+
+  .inputText {
+    border:1px solid grey;
+  }
