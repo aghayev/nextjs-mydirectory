@@ -34,6 +34,21 @@ const fetchLocationByIP = async () => {
   return jsonResponse.country;
 };
 
+const validateSession = async (sessionId: string) => {
+  const response = await fetch('http://localhost:3002/api/validate', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      sessionId: sessionId,
+    }),
+  })
+
+  const res = await response.json();
+  return res.items
+};
+
 const rateLimitMap = new Map();
 
 export async function middleware(req: NextRequest) {
@@ -94,25 +109,33 @@ export async function middleware(req: NextRequest) {
   // Protected, Session storage
   if (isProtectedRoute(url.pathname)) {
 
-    /*
-    const session = getSession(req.cookies.get('sessionId')); // Validate session
-    if (!session) {
+  const session = req.cookies.get('sessionId');
+
+  if (!session) {
+    url.pathname = "/protected";
+  }
+
+  if (session) {
+    const dbsession = await validateSession(session?.value)
+
+    if (!dbsession) {
+      req.cookies.delete(session?.value)
       url.pathname = "/protected";
     }
+    console.log(dbsession)
+
+    /*
+
 
     // Authorization
-    if (session.user.role !== 'admin') {
-    return Response.json(
-      { success: false, message: "Access forbidden" },
-      { status: 403 }
-    )
+    if (dbsession.role !== 'admin') {
+      return Response.json(
+        { success: false, message: "No admin access rights to view the content" },
+        { status: 403 }
+      )
     }
-    */
-
-    const sessionId = req.cookies.get('sessionId');
-    if (!sessionId) {
-      url.pathname = "/protected";
-    }
+    */      
+  }
 
     return NextResponse.rewrite(url);
   }

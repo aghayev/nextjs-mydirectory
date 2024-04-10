@@ -42,7 +42,6 @@ import { useEffect, useState } from "react";
       }, [params]);
       
       useEffect(() => {
-        console.log(dataResponse);
       }, [dataResponse]);      
 
     return (

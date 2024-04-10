@@ -27,7 +27,7 @@ export default async function login(
     await db.run("DELETE FROM sessions WHERE user_id = ?", user.id);
 
     const sessionId = makeUniqueId(user.id)
-    await db.run("INSERT INTO sessions (session_id, user_id) VALUES (?,?)", sessionId, user.id);
+    await db.run("INSERT INTO sessions (session_id, user_id, role) VALUES (?,?,?)", sessionId, user.id, user.role);
     res.setHeader(
       "Set-Cookie",
       `sessionId=${sessionId}; HttpOnly; Path=/; SameSite=Lax`
@@ -37,5 +37,5 @@ export default async function login(
   } catch (error: any) {
     console.log('Error occured: ' + error.response.data)
     res.status(500).json({ error: 'Internal System Error'})
-  }
+}
 }

@@ -23,15 +23,21 @@ export async function getUser(username: string, password: string) {
   if (username === "admin" && password === "admin") {
     return {
       id: 5,
-    };
+      role: 'admin'
+    }
   }
+  else if (username === 'user1' && password === 'user1') {
+    return {
+      id: 6,
+      role: 'user'
+    }
+  }  
 
   return null;
 }
 
 // Validate Session
-export async function getSession(sessionId: any) {
-
+export async function getSession(sessionId: string | null) {
   if (!db) {
     db = await open({
       filename: "./sqlite/mydirectory.db",
@@ -45,7 +51,7 @@ export async function getSession(sessionId: any) {
 
     const data = await db.all(querySql);
 
-    db.close()
+    db.close();
     return { data: data };
   } catch (error: any) {
     console.log("error occured:" + error);
