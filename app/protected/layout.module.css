@@ -15,3 +15,14 @@
   .inputText {
     border:1px solid grey;
   }
+
+  .button {
+    background-color: green;
+    border: none;
+    color: white;
+    padding: 5px 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }

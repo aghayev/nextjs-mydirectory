@@ -32,6 +32,7 @@ export default async function login(
       "Set-Cookie",
       `sessionId=${sessionId}; HttpOnly; Path=/; SameSite=Lax`
     );
+    db.close()
     res.status(200).json({ message: "Success" });
   } catch (error: any) {
     console.log('Error occured: ' + error.response.data)

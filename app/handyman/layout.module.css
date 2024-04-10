@@ -1,0 +1,20 @@
+.innerLayout {
+  width: 50%;
+  height: auto;
+  padding: 1rem;
+}
+
+.children {
+  padding: 1rem;
+}
+
+.button {
+    background-color: green;
+    border: none;
+    color: white;
+    padding: 5px 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }

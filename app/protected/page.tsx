@@ -40,6 +40,7 @@ function ProtectedPage() {
 
   return (
     <div>
+      <button onClick={() => history.back()}><strong>back</strong></button>
       <form onSubmit={handleLogin}>
         <label>
           Username:
@@ -51,7 +52,7 @@ function ProtectedPage() {
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className={styles.inputText} required />
         </label>
         <br />
-        <button type="submit">Log In</button>
+        <button className={styles.button} type="submit">Log In</button>
         <br />
         <span className={styles.errorMsg}>{statusText}</span>
       </form>

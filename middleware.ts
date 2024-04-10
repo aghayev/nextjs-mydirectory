@@ -17,7 +17,7 @@ const isProtectedRoute = (pathname: string) => {
 };
 
 const isRestrictedRoute = (pathname: string) => {
-  return pathname.startsWith("/handyman") || pathname.startsWith("/swimming");
+  return pathname.startsWith("/swimming");
 };
 
 const isGeoipRoute = (pathname: string) => {
@@ -25,7 +25,7 @@ const isGeoipRoute = (pathname: string) => {
 };
 
 const isRateLimitRoute = (pathname: string) => {
-  return pathname.startsWith("/reduxcounter");
+  return pathname.startsWith("/handyman");
 };
 
 const fetchLocationByIP = async () => {

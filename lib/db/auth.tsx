@@ -44,6 +44,8 @@ export async function getSession(sessionId: any) {
     WHERE A.session_id = '${sessionId}'`;
 
     const data = await db.all(querySql);
+
+    db.close()
     return { data: data };
   } catch (error: any) {
     console.log("error occured:" + error);
