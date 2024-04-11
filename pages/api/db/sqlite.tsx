@@ -34,7 +34,6 @@ export default async function handler(
 
       const data = await db.all(querySql);
 
-      db.close()
       res.status(200).json({ items: data });
     } catch (error: any) {
       console.log('Error occured: ' + error.response.data)

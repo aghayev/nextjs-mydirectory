@@ -31,7 +31,7 @@ export default async function handler(
     const querySql = `SELECT A.user_id, A.role FROM sessions A \
     WHERE A.session_id = '${sessionId}'`;
 
-    const data = await db.all(querySql);
+    const data = await db.get(querySql);
 
     res.status(200).json({ items: data });
 } catch (error: any) {

@@ -35,27 +35,3 @@ export async function getUser(username: string, password: string) {
 
   return null;
 }
-
-// Validate Session
-export async function getSession(sessionId: string | null) {
-  if (!db) {
-    db = await open({
-      filename: "./sqlite/mydirectory.db",
-      driver: sqlite3.Database,
-    });
-  }
-
-  try {
-    const querySql = `SELECT A.user_id FROM sessions A \
-    WHERE A.session_id = '${sessionId}'`;
-
-    const data = await db.all(querySql);
-
-    db.close();
-    return { data: data };
-  } catch (error: any) {
-    console.log("error occured:" + error);
-  }
-
-  return null;
-}

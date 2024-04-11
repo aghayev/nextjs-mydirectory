@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSession } from "./lib/db/auth";
 
 export const config = {
   matcher: [
@@ -35,18 +34,18 @@ const fetchLocationByIP = async () => {
 };
 
 const validateSession = async (sessionId: string) => {
-  const response = await fetch('http://localhost:3002/api/validate', {
-    method: 'POST',
+  const response = await fetch("http://localhost:3002/api/validate", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       sessionId: sessionId,
     }),
-  })
+  });
 
   const res = await response.json();
-  return res.items
+  return res.items;
 };
 
 const rateLimitMap = new Map();
@@ -108,34 +107,30 @@ export async function middleware(req: NextRequest) {
 
   // Protected, Session storage
   if (isProtectedRoute(url.pathname)) {
+    const session = req.cookies.get("sessionId");
 
-  const session = req.cookies.get('sessionId');
-
-  if (!session) {
-    url.pathname = "/protected";
-  }
-
-  if (session) {
-    const dbsession = await validateSession(session?.value)
-
-    if (!dbsession) {
-      req.cookies.delete(session?.value)
+    if (!session) {
       url.pathname = "/protected";
     }
-    console.log(dbsession)
 
-    /*
+    if (session) {
+      const dbsession = await validateSession(session?.value);
+      if (!dbsession) {
+        req.cookies.delete(session?.value);
+        url.pathname = "/protected";
+      }
 
-
-    // Authorization
-    if (dbsession.role !== 'admin') {
-      return Response.json(
-        { success: false, message: "No admin access rights to view the content" },
-        { status: 403 }
-      )
+      // Authorization
+      if (dbsession.role !== "admin") {
+        return Response.json(
+          {
+            success: false,
+            message: "No admin access rights to view the content",
+          },
+          { status: 403 }
+        );
+      }
     }
-    */      
-  }
 
     return NextResponse.rewrite(url);
   }
