@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import styles from './layout.module.css'
-import { Providers } from './GlobalRedux/provider'
+import { Providers } from './globalredux/provider'
 import getConfig from 'next/config';
 
 export const metadata: Metadata = {

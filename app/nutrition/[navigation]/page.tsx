@@ -46,6 +46,7 @@ import { useEffect, useState } from "react";
 
     return (
         <>
+      <button onClick={() => history.back()}><strong>back</strong></button>
         <div><span>Params: </span>{params?.navigation}</div>
         <div>
           <ul>

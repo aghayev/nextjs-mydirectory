@@ -32,7 +32,7 @@ function ProtectedPage() {
         throw new Error('Login failed')
       }
 
-    router.push('/')
+      router.refresh()
     } catch (error) {
       console.error(error)
     }

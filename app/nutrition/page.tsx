@@ -1,9 +1,11 @@
+'use client'
 import Link from "next/link";
 import React from "react";
 
 const NutritionPage = () => {
   return (
     <div>
+      <button onClick={() => history.back()}><strong>back</strong></button>
       <ul>
         <li>
           <Link href="/nutrition/BreakfastIdeas">Breakfast ideas</Link>

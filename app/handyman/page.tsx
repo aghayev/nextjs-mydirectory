@@ -1,8 +1,8 @@
 'use client';
 import React from 'react';
-import type { RootState } from '../GlobalRedux/store';
+import type { RootState } from '../globalredux/store';
 import { useSelector, useDispatch } from 'react-redux';
-import {increment, decrement, incrementByAmount } from '../GlobalRedux/Festures/counter/counterSlice';
+import {increment, decrement, incrementByAmount } from '../globalredux/features/counter/counterSlice';
 import styles from './layout.module.css'
 
 const ReduxcounterPage = () => {
