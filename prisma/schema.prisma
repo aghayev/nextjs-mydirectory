@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model categories {
+  entity_id     Int       @id @default(autoincrement())
+  parent_id     Int?
+  category_name String?   @unique(map: "sqlite_autoindex_categories_1")
+  created_at    DateTime? @default(now())
+  description   String?
+}
+
+model items {
+  entity_id    Int       @id @default(autoincrement())
+  category_id  Int?
+  title        String?   @unique(map: "sqlite_autoindex_items_1")
+  picture_path String?
+  description  String?
+  created_at   DateTime? @default(now())
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model sessions {
+  session_id String?   @id
+  user_id    Int?
+  created_at DateTime? @default(now())
+  role       String?
+
+  @@ignore
+}
