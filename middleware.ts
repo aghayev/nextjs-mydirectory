@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { RateLimiter } from "./lib/ratelimiter";
 
 export const config = {
   matcher: [
@@ -48,7 +49,7 @@ const validateSession = async (sessionId: string) => {
   return res.items;
 };
 
-const rateLimitMap = new Map();
+const rateLimiter = new RateLimiter();
 
 export async function middleware(req: NextRequest) {
   const { nextUrl: url, geo } = req;
@@ -78,31 +79,16 @@ export async function middleware(req: NextRequest) {
 
   if (isRateLimitRoute(url.pathname)) {
     const ip = req.headers.get("x-forwarded-host"); // x-forwarded-for on local is empty
-    const limit = 5; // Limiting requests to 5 per minute per IP
-    const windowMs = 60 * 1000; // 1 minute
+    const ipData = rateLimiter.setIpData(ip)
 
-    if (!rateLimitMap.has(ip)) {
-      rateLimitMap.set(ip, {
-        count: 0,
-        lastReset: Date.now(),
-      });
-    }
-
-    const ipData = rateLimitMap.get(ip);
-
-    if (Date.now() - ipData.lastReset > windowMs) {
-      ipData.count = 0;
-      ipData.lastReset = Date.now();
-    }
-
-    if (ipData.count >= limit) {
+    if (rateLimiter.tooManyRequests(ipData)) {
       return Response.json(
         { success: false, message: "Too Many Requests" },
         { status: 429 }
       );
     }
 
-    ipData.count += 1;
+    rateLimiter.increaseCount(ipData)
   }
 
   // Protected, Session storage
@@ -115,13 +101,14 @@ export async function middleware(req: NextRequest) {
 
     if (session) {
       const dbsession = await validateSession(session?.value);
-      if (!dbsession) {
+
+      if (!dbsession || dbsession === undefined) {
         req.cookies.delete(session?.value);
         url.pathname = "/protected";
       }
 
       // Authorization
-      if (dbsession.role !== "admin") {
+      if (dbsession && dbsession.role !== "admin") {
         return Response.json(
           {
             success: false,
