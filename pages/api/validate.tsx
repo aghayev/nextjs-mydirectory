@@ -1,9 +1,6 @@
-import sqlite3 from "sqlite3";
-import { open, Database } from "sqlite";
-
 import type { NextApiRequest, NextApiResponse } from "next";
+import { getDb } from '../../lib/db/sqlite'
 
-let db: Database<sqlite3.Database, sqlite3.Statement> | null = null;
 type ResponseData = ResponseSuccessData | ResponseErrorData 
 type ResponseSuccessData = {
   items: any[]
@@ -18,12 +15,7 @@ export default async function handler(
   res: NextApiResponse<ResponseData>
 ) {
 
-  if (!db) {
-    db = await open({
-      filename: "./lib/db/sqlite/mydirectory.db",
-      driver: sqlite3.Database,
-    });
-  }
+  let db = await getDb()
 
   try {
     const sessionId = req?.body.sessionId;

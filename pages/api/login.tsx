@@ -1,10 +1,6 @@
-import { makeUniqueId, getUser } from "../../lib/db/auth"
-import sqlite3 from "sqlite3";
-import { open, Database } from "sqlite";
-
 import type { NextApiRequest, NextApiResponse } from "next";
-
-let db: Database<sqlite3.Database, sqlite3.Statement> | null = null;
+import { makeUniqueId, getUser } from "../../lib/db/auth"
+import { getDb } from '../../lib/db/sqlite'
 
 export default async function login(
   req: NextApiRequest, 
@@ -16,12 +12,7 @@ export default async function login(
     return res.status(401).json({ error: "Invalid credentials" });
   }
 
-  if (!db) {
-    db = await open({
-      filename: "./lib/db/sqlite/mydirectory.db",
-      driver: sqlite3.Database,
-    });
-  }
+  let db = await getDb()
 
   try {
     await db.run("DELETE FROM sessions WHERE user_id = ?", user.id);

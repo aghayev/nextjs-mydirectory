@@ -1,24 +1,12 @@
-import { makeUniqueId, getUser } from "../../lib/db/auth"
-import sqlite3 from "sqlite3";
-import { open, Database } from "sqlite";
-import { deleteCookie, getCookies } from 'cookies-next';
-
 import type { NextApiRequest, NextApiResponse } from "next";
-import router from "next/router";
-
-let db: Database<sqlite3.Database, sqlite3.Statement> | null = null;
+import { getDb } from '../../lib/db/sqlite'
 
 export default async function logout(
   req: NextApiRequest, 
   res: NextApiResponse
 ) {
 
-  if (!db) {
-    db = await open({
-      filename: "./lib/db/sqlite/mydirectory.db",
-      driver: sqlite3.Database,
-    });
-  }
+  let db = await getDb()
 
   try {
     const cookies = req.cookies
