@@ -1,10 +1,21 @@
 const lodash = require('lodash')
 
+// Function converting dot-key string to JSON data
+function dotKeyStrToJson(path, obj) {
+  //var parts = path.split("."), part
+  var parts = path.split(".")
+  var last = parts.pop().split(":")
+  while (part = parts.shift()) {
+    if (typeof obj[part] != "object") obj[part] = {}
+    obj = obj[part]
+  }
+  obj[last[0]] = last[1]
+}
+
 // Function to recursively find new missing keys from existing 'src' file into final output
 function findMissingJsonKeys(a, b) {
     var result = {
-      missing: [],
-      imran: {}
+      missing: []
     }
     lodash.reduce(a, function (result, value, key) {
       if (b.hasOwnProperty(key)) {
@@ -189,4 +200,9 @@ function findMissingJsonKeys(a, b) {
     JSON.parse(JSON.stringify(fromTranslationsJsonData).replace(/\:null/gi, "\:\"\""))
   )
 
-console.log(result)
+  var missingJsonData = {}
+  result['missing'].map((row) => {
+    dotKeyStrToJson(row, missingJsonData)
+  })
+
+console.log(JSON.stringify(missingJsonData, '', 2))
