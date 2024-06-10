@@ -23,9 +23,6 @@ export default function Home() {
         <li>
           <Link href="/form">Form login</Link>
         </li>
-        <li>
-          <Link href="/reduxcounter">Redux Counter</Link>
-        </li>
       </ul>
     </main>
   )

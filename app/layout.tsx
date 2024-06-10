@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import styles from './layout.module.css'
-import { Providers } from './GlobalRedux/provider'
 import getConfig from 'next/config';
 
 export const metadata: Metadata = {
@@ -28,9 +27,7 @@ export default function RootLayout({
       <body>
         <div className={styles.header}>My wellbeing directory</div>
         <div>
-          <Providers>
-            {children}
-          </Providers>
+        {children}
         </div>
         <div className={styles.trailer}>Release version: {publicRuntimeConfig?.version}</div>
       </body>

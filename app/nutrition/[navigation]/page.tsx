@@ -2,6 +2,10 @@
 import {usePathname, useParams, useSearchParams} from "next/navigation";
 import { useEffect, useState } from "react";
  
+//export function generateStaticParams() {
+//  return [{ id: '1' }, { id: '2' }, { id: '3' }]
+//}
+
     // folder structure: app/nutrition/[navigation]/page.tsx
     // url: http://localhost:3002/nutrition/something?query=mine
     /* Expected output:
