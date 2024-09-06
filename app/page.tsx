@@ -26,6 +26,9 @@ export default function Home() {
         <li>
           <Link href="/reduxcounter">Redux Counter</Link>
         </li>
+        <li>
+          <Link href="/ssrexample">Server Side Rendering with getServerSideProps (example)</Link>
+        </li>
       </ul>
     </main>
   )
