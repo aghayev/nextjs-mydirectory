@@ -27,6 +27,9 @@ export default function Home() {
         <li>
           <Link href="/api/ping">Ping (Protected geolocation-based route)</Link>
         </li>
+        <li>
+          <Link href="/ssrexample">Server Side Rendering with getServerSideProps (example)</Link>
+        </li>
         {sessionId && 
         <li>
           <Logout />
