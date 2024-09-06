@@ -1,3 +1,8 @@
+/**
+ * To check what is rendered in server-side and what is in client-side we added environment variable IS_SERVER_FLAG
+ * The isea behind is, all client-side variable has NEXT_PUBLIC as prefix. So, checking a variable with such prefix
+ * helps identify whether it is server-side or a client / browser 
+ */
 import { useEffect, useState } from 'react'
 
 const Ssrexample = ({ message, isserver }) => {
